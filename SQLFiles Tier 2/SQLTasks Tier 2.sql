@@ -110,14 +110,16 @@ the member name. */
 
 --A7:
 -- Show members who used the tennis court. SELECT court name, fullname. No dups. Order by member name
-SELECT f.name, CONCAT(m.firstname, ' ', m.surname) AS fullname
+SELECT f.name, m.surname, m.firstname
 FROM Members AS m
 INNER JOIN Bookings AS b
 	ON m.memid = b.memid
 INNER JOIN Facilities AS f
 	ON f.facid = b.facid
-GROUP BY f.name, fullname
-ORDER BY fullname
+WHERE f.name LIKE 'Tennis Court%'
+GROUP BY f.name
+ORDER BY m.surname, m.firstname
+#THE CONCAT FUNCTION IS CONTINUALLY ERRORING OUT
 
 /* Q8: Produce a list of bookings on the day of 2012-09-14 which
 will cost the member (or guest) more than $30. Remember that guests have
